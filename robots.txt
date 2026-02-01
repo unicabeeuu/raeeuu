@@ -1,0 +1,7 @@
+# robots.txt generado por Impacto Digital
+User-agent: *
+Disallow: 
+Disallow: /cgi-bin/
+Disallow: /admin-unicab/
+Disallow: /registro/adminunicab/
+Sitemap: https://unicab.org/sitemap.xml

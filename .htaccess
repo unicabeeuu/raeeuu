@@ -1,0 +1,93 @@
+# BEGIN LSCACHE
+# END LSCACHE
+# BEGIN NON_LSCACHE
+# END NON_LSCACHE
+
+# --- INICIO DE DIRECTIVAS PARA DESCARGA DE XLSX (AÑADIDAS AQUÍ) ---
+<IfModule mod_headers.c>
+    # 1. Definir el tipo MIME para XLSX (Excel Open XML)
+    AddType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet .xlsx
+
+    # 2. Forzar la descarga de cualquier archivo .xlsx (CRUCIAL para Firefox)
+    <FilesMatch "\.(xlsx)$">
+        Header set Content-Disposition "attachment"
+    </FilesMatch>
+</IfModule>
+# --- FIN DE DIRECTIVAS PARA DESCARGA DE XLSX ---
+
+RewriteOptions inherit
+# BEGIN rlrssslReallySimpleSSL rsssl_version[3.2.3]
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{HTTPS} !=on [NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+# END rlrssslReallySimpleSSL
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+RewriteCond %{HTTP_HOST} ^unicab\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.unicab\.org$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^moodle18$ "https\:\/\/aulavirtual\.unicab\.org\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^.*$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^moodle18\/login\/$ "https\:\/\/aulavirtual\.unicab\.org\/login\/index\.php" [R=301,L]
+# BEGIN WP Performance Score Booster Settings
+# END WP Performance Score Booster Settings
+# BEGIN wtfdivi
+
+
+<ifModule mod_deflate.c>
+Addtype font/truetype .ttf
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/xhtml+xml application/rss+xml application/x-javascript application/javascript text/javascript font/truetype
+</ifModule>
+
+
+
+
+
+
+
+
+
+
+
+# END wtfdivi
+RewriteCond %{HTTP_HOST} ^correo\.unicab\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.correo\.unicab\.org$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^/?$ "https\:\/\/mail\.google\.com\/a\/unicab\.org" [R=301,L]
+RewriteCond %{HTTP_HOST} ^.*$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^category\/blog\/$ "https\:\/\/unicab\.org\/blog\/" [R=301,L]
+# BEGIN LiteSpeed
+<IfModule Litespeed>
+SetEnv noabort 1
+</IfModule>
+# END LiteSpeed
+
